@@ -6,39 +6,48 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Fundos e superfícies
-        gray: {
-          base:     '#0d0d0d',
-          surface:  '#1a1a1a',
-          elevated: '#242424',
-          subtle:   '#2e2e2e',
-        },
-        // Vermelhos táticos — ação, perigo, destaque
         red: {
-          strong: '#c0392b',
-          mid:    '#e74c3c',
-          muted:  '#7d2a22',
-          subtle: '#3d1a17',
+          DEFAULT: '#c0392b',
+          hover:   '#a93226',
+          light:   '#f9ecea',
+          border:  '#e8b4ae',
+          muted:   '#7d2a22',
         },
-        // Status vitais
-        status: {
-          hp:          '#4caf79',
-          'hp-low':    '#f59e0b',
-          'hp-critical': 'var(--color-red-strong)',
-          energy:      '#60a5fa',
-          condition:   '#9b7fd4',
+        gray: {
+          base:           '#f5f4f2',
+          surface:        '#ffffff',
+          'surface-2':    '#f0efed',
+          border:         '#e2e0dc',
+          'border-strong':'#c8c5bf',
+        },
+        black: {
+          DEFAULT: '#111111',
+          '2':     '#1a1a1a',
+          '3':     '#1e1e1e',
+          border:  '#2a2a2a',
+        },
+        text: {
+          primary:   '#1a1a1a',
+          secondary: '#5a5855',
+          muted:     '#9a9794',
+          light:     '#f0f0f0',
+        },
+        hp: {
+          ok:  '#2ecc71',
+          low: '#c0392b',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['"JetBrains Mono"', '"Fira Code"', 'ui-monospace', 'monospace'],
+        sans: ['Manrope', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       fontSize: {
-        xs:   ['0.75rem',  { lineHeight: '1.25' }],  // 12px
-        sm:   ['0.875rem', { lineHeight: '1.5'  }],  // 14px
-        base: ['1rem',     { lineHeight: '1.5'  }],  // 16px
-        lg:   ['1.25rem',  { lineHeight: '1.5'  }],  // 20px
-        xl:   ['1.5rem',   { lineHeight: '1.25' }],  // 24px
+        '2xs': ['0.625rem',  { lineHeight: '1.25' }],  // 10px
+        xs:    ['0.6875rem', { lineHeight: '1.25' }],  // 11px
+        sm:    ['0.75rem',   { lineHeight: '1.5'  }],  // 12px
+        md:    ['0.8125rem', { lineHeight: '1.5'  }],  // 13px
+        base:  ['0.875rem',  { lineHeight: '1.5'  }],  // 14px
+        lg:    ['1.25rem',   { lineHeight: '1.5'  }],  // 20px
       },
       fontWeight: {
         normal:   '400',
@@ -47,24 +56,28 @@ export default {
         // bold (700+) excluído intencionalmente
       },
       spacing: {
-        xs:  '0.25rem',  //  4px
-        sm:  '0.5rem',   //  8px
-        md:  '1rem',     // 16px
-        lg:  '1.5rem',   // 24px
-        xl:  '2rem',     // 32px
-        '2xl': '3rem',   // 48px
+        xs:    '0.25rem',  //  4px
+        sm:    '0.5rem',   //  8px
+        md:    '1rem',     // 16px
+        lg:    '1.5rem',   // 24px
+        xl:    '2rem',     // 32px
+        '2xl': '3rem',     // 48px
       },
       borderRadius: {
-        DEFAULT: '0.25rem',  //  4px — padrão global
-        md:      '0.5rem',   //  8px — cards
-        full:    '9999px',   // pílulas
+        sm:   '3px',
+        DEFAULT: '4px',
+        md:   '4px',
+        lg:   '6px',
+        xl:   '8px',
+        // Sem valores acima de 8px
       },
       borderColor: {
-        DEFAULT: '#2e2e2e',
-        strong:  '#444444',
+        DEFAULT:       '#e2e0dc',
+        strong:        '#c8c5bf',
+        dark:          '#2a2a2a',
+        'dark-2':      '#333333',
       },
       boxShadow: {
-        // Sombras desabilitadas — separação visual via bordas e cor de fundo
         none: 'none',
       },
     },

@@ -57,9 +57,13 @@ backend/src/
 - Tailwind para layout, espaçamento, cores e tipografia
 - BEM em SCSS apenas quando Tailwind não for suficiente (ex: `participant-card__hp-bar--critical`)
 - Nunca usar `style=""` inline nos templates
+- Nunca usar hex direto nos componentes — sempre variáveis CSS dos tokens (`var(--color-*)`)
 - Nunca sobrescrever classes do PrimeNG com CSS global — usar PassThrough API (`pt="{...}"`)
 - Componentes standalone: estilos no próprio `.scss` do componente, nunca em `styles.scss`
-- `styles.scss` reservado para: import dos tokens, tema PrimeNG e reset global
+- `styles.scss` reservado para: import dos tokens, import do Inter (via `index.html`) e reset global
+- Sidebar sempre com fundo `--color-bg-black`
+- Ações primárias (botão submit, CTA) sempre em `--color-red`
+- HP crítico (abaixo de 30%) sempre em `--color-hp-low` (= `--color-red`)
 
 ## Regras Backend
 - Validação com class-validator em todos os DTOs

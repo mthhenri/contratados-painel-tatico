@@ -1,17 +1,16 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { MessageModule } from 'primeng/message';
 import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, PasswordModule, MessageModule],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule],
   templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   private readonly auth = inject(AuthService);
@@ -23,21 +22,21 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  readonly loading = signal(false);
+  readonly isLoading = signal(false);
   readonly errorMessage = signal<string | null>(null);
 
   submit(): void {
-    if (this.form.invalid || this.loading()) return;
+    if (this.form.invalid || this.isLoading()) return;
 
     const { email, password } = this.form.getRawValue();
-    this.loading.set(true);
+    this.isLoading.set(true);
     this.errorMessage.set(null);
 
     this.auth.login(email!, password!).subscribe({
       next: () => this.router.navigate(['/dashboard']),
       error: () => {
         this.errorMessage.set('E-mail ou senha inválidos.');
-        this.loading.set(false);
+        this.isLoading.set(false);
       },
     });
   }

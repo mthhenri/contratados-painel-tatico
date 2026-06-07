@@ -173,7 +173,7 @@ frontend/
 
 ### Identidade visual
 
-**Conceito:** tensão controlada. Interface limpa e funcional, sem decoração — a clareza das informações de combate é a prioridade.
+**Conceito:** clareza tática. Interface clara e densa — fundo claro com sidebar escura, destaque em vermelho para estados críticos.
 
 **Restrições absolutas:**
 - Sem gradientes
@@ -181,32 +181,54 @@ frontend/
 - Sem `font-weight` ≥ 700
 - Sem `border-radius` > 8px
 - Sem `style=""` inline nos templates
+- Nunca usar hex direto nos componentes — sempre variáveis CSS dos tokens
+
+**Componentes e uso de tokens:**
+
+| Área | Token(s) | Comportamento |
+|---|---|---|
+| Sidebar | `--color-bg-black` | Fundo escuro; item ativo com borda esquerda `--color-red` |
+| Cards | `--color-bg-surface`, `--color-border`, `--radius-xl` | Fundo branco, borda sutil, radius 8px |
+| Participante ativo | `--color-red` | Borda e header em vermelho |
+| HP crítico (≤ 30%) | `--color-hp-low` | Texto e barra em `--color-hp-low` (= `--color-red`) |
+| Participante inativo | — | `opacity: 0.5` |
+| Barra de iniciativa | `--color-bg-black` | Fundo escuro, texto `--color-text-light` |
 
 **Paleta de cores:**
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--color-bg-base` | `#0d0d0d` | Fundo principal |
-| `--color-bg-surface` | `#1a1a1a` | Cards e painéis |
-| `--color-bg-elevated` | `#242424` | Modais, dropdowns |
-| `--color-bg-subtle` | `#2e2e2e` | Hover, separadores |
-| `--color-red-strong` | `#c0392b` | Ações primárias, participante ativo, HP crítico |
-| `--color-red-mid` | `#e74c3c` | Hover de ações primárias |
-| `--color-red-muted` | `#7d2a22` | Badges de condição, status |
-| `--color-red-subtle` | `#3d1a17` | Fundo de alertas |
-| `--color-text-primary` | `#f0f0f0` | Texto principal |
-| `--color-text-secondary` | `#a0a0a0` | Labels, metadados |
-| `--color-text-muted` | `#5a5a5a` | Placeholders, desabilitados |
-| `--color-border` | `#2e2e2e` | Bordas padrão |
-| `--color-border-strong` | `#444444` | Bordas de destaque |
+| `--color-bg-base` | `#f5f4f2` | Fundo principal |
+| `--color-bg-surface` | `#ffffff` | Cards e painéis |
+| `--color-bg-surface-2` | `#f0efed` | Superfície secundária, zebra |
+| `--color-bg-black` | `#111111` | Sidebar, barras de iniciativa |
+| `--color-bg-black-2` | `#1a1a1a` | Variante escura 2 |
+| `--color-bg-black-3` | `#1e1e1e` | Variante escura 3 |
+| `--color-border` | `#e2e0dc` | Bordas padrão |
+| `--color-border-strong` | `#c8c5bf` | Bordas de destaque |
+| `--color-border-dark` | `#2a2a2a` | Bordas em contexto escuro |
+| `--color-red` | `#c0392b` | Ações primárias, participante ativo, HP crítico |
+| `--color-red-hover` | `#a93226` | Hover de ações primárias |
+| `--color-red-light` | `#f9ecea` | Fundo de alertas |
+| `--color-red-border` | `#e8b4ae` | Borda de alertas |
+| `--color-red-muted` | `#7d2a22` | Badges de status |
+| `--color-text-primary` | `#1a1a1a` | Texto principal |
+| `--color-text-secondary` | `#5a5855` | Labels, metadados |
+| `--color-text-muted` | `#9a9794` | Placeholders, desabilitados |
+| `--color-text-light` | `#f0f0f0` | Texto sobre fundos escuros |
+| `--color-hp-ok` | `#2ecc71` | HP normal |
+| `--color-hp-low` | `#c0392b` | HP crítico (≤ 30%) |
 
 **Tipografia:**
-- Família: `Inter` (Google Fonts, pesos 400/500/600)
-- Escala: 12 / 14 / 16 / 20 / 24px
+- Família: `Inter`, `system-ui`, `sans-serif` (importar via `index.html`, pesos 400/500/600)
+- Escala: 10 / 11 / 12 / 13 / 14 / 20px
 - Peso máximo: 600 (semibold)
 
 **Forma:**
-- `border-radius`: 4px padrão, 8px para cards, `9999px` para pílulas/badges
+- `--radius-sm`: 3px — inputs, badges pequenos
+- `--radius-md`: 4px — padrão global
+- `--radius-lg`: 6px — intermediário
+- `--radius-xl`: 8px — cards
 - Bordas: `1px solid var(--color-border)`
 
 ---

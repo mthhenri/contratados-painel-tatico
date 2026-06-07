@@ -1,9 +1,7 @@
 // @use rules devem vir primeiro (exigência do SCSS)
 @use 'styles/tokens';
+@use 'styles/buttons';
 @use 'primeicons/primeicons.css';
-
-// Inter — importada via Google Fonts
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 // Tailwind directives
 @tailwind base;

@@ -1,45 +1,52 @@
 <div class="login">
   <div class="login__card">
-    <h1 class="login__title">Painel Tático</h1>
-    <p class="login__subtitle">Acesso do Mestre</p>
-
-    @if (errorMessage()) {
-      <p-message severity="error" [text]="errorMessage()!" styleClass="login__error" />
-    }
+    <header class="login__header">
+      <span class="login__eyebrow micro">Sistema de Combate</span>
+      <h1 class="login__title">Painel Tático</h1>
+      <p class="login__subtitle">Acesso do Mestre</p>
+    </header>
 
     <form [formGroup]="form" (ngSubmit)="submit()" class="login__form">
-      <div class="login__field">
-        <label for="email" class="login__label">E-mail</label>
+      <div class="login__field field">
+        <label for="email" class="field__label micro">E-mail</label>
         <input
           id="email"
           type="email"
           pInputText
           formControlName="email"
           placeholder="mestre@exemplo.com"
-          class="login__input"
+          class="field__input"
           autocomplete="email"
         />
       </div>
 
-      <div class="login__field">
-        <label for="password" class="login__label">Senha</label>
+      <div class="login__field field">
+        <label for="password" class="field__label micro">Senha</label>
         <p-password
           inputId="password"
           formControlName="password"
           [feedback]="false"
           [toggleMask]="true"
-          styleClass="login__input"
+          styleClass="field__password"
+          inputStyleClass="field__input"
           autocomplete="current-password"
         />
       </div>
 
-      <p-button
+      @if (errorMessage()) {
+        <p class="login__error">{{ errorMessage() }}</p>
+      }
+
+      <button
         type="submit"
-        label="Entrar"
-        [loading]="loading()"
-        [disabled]="form.invalid || loading()"
-        styleClass="login__btn"
-      />
+        class="btn btn-primary btn-full"
+        [disabled]="form.invalid || isLoading()"
+      >
+        @if (isLoading()) {
+          <i class="pi pi-spin pi-spinner"></i>
+        }
+        {{ isLoading() ? 'Entrando...' : 'Entrar' }}
+      </button>
     </form>
   </div>
 </div>

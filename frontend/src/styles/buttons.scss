@@ -1,0 +1,130 @@
+// =============================================================================
+// Botões — sistema de classes utilitárias
+// Uso: class="btn btn-primary btn-lg"
+// Para p-button do PrimeNG: styleClass="btn btn-primary btn-lg"
+// =============================================================================
+
+// Base compartilhada
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border-radius: var(--radius-btn-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  border: 1px solid transparent;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    opacity var(--transition-fast),
+    transform .06s ease;
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+}
+
+.btn-sm   { padding: 7px 16px;  font-size: var(--font-size-sm);  border-radius: var(--radius-btn-sm); }
+.btn-lg   { padding: 12px 28px; font-size: var(--font-size-base); border-radius: var(--radius-btn-lg); }
+.btn-full { width: 100%; }
+
+// Primário — submit, "Próximo turno", "Adicionar"
+// Especificidade dupla (.btn.btn-primary) para sobrescrever .p-button do PrimeNG
+.btn.btn-primary {
+  background: var(--color-red);
+  color: var(--color-text-light);
+  border-color: var(--color-red);
+
+  &:hover:not(:disabled) {
+    background: var(--color-red-hover);
+    border-color: var(--color-red-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background: var(--color-border-strong);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: .6;
+  }
+}
+
+// Secundário — "Cancelar", "Voltar", "Pausar"
+.btn.btn-secondary {
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-strong);
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg-surface-2);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-border-strong);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+  }
+}
+
+// Ghost — ações terciárias
+.btn.btn-ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg-surface-2);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-border-strong);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+  }
+}
+
+// Destrutivo — "Remover participante", "Encerrar sessão"
+.btn.btn-danger {
+  background: var(--color-bg-surface);
+  color: var(--color-red);
+  border-color: var(--color-red-border);
+
+  &:hover:not(:disabled) {
+    background: var(--color-red-light);
+    border-color: var(--color-red);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,204 @@
+// =============================================================================
+// Login — tela de entrada do Painel Tático
+// Fundo: --side (escuro). Glow hero permitido por exceção do design system.
+// =============================================================================
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--side);
+
+  // Hero glow — única exceção de glow definida no design system
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 600px 280px at 50% 0%,
+      var(--accent-soft),
+      transparent 70%
+    );
+    opacity: .12;
+    pointer-events: none;
+  }
+
+  &__card {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: var(--spacing-xl);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    animation: codereveal .26s ease both;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  &__eyebrow {
+    color: var(--accent);
+  }
+
+  &__title {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+
+  &__subtitle {
+    font-size: var(--font-size-base);
+    color: var(--ink-2);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  &__error {
+    font-size: var(--font-size-sm);
+    color: var(--danger);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--danger-soft);
+    border: 1px solid var(--color-red-border);
+    border-radius: var(--radius-md);
+  }
+}
+
+// =============================================================================
+// Field — componente de campo de formulário (escopo desta tela)
+// Reutilizável: .field > .field__label + .field__input
+// =============================================================================
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+
+  &__label {
+    color: var(--ink-4);
+  }
+
+  &__input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    outline: none;
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+
+    &::placeholder {
+      color: var(--ink-4);
+    }
+
+    &:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  }
+
+  &__password {
+    display: block;
+    width: 100%;
+  }
+}
+
+// Neutraliza estilos do PrimeNG no p-password — escopado neste componente via PT wrapper
+// Não é override global: a classe .field__password só existe no login card.
+::ng-deep .field__password {
+  display: block;
+  width: 100%;
+
+  // Wrapper interno do p-password: precisa de position:relative para o botão de toggle
+  .p-password {
+    display: block;
+    width: 100%;
+    position: relative;
+  }
+
+  // O input gerado internamente deve ter a mesma aparência de .field__input.
+  // padding-right alargado para não sobrepor o botão de toggle do PrimeNG.
+  .p-inputtext {
+    width: 100%;
+    padding: var(--spacing-sm) 2.5rem var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    outline: none;
+    box-shadow: none;
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+
+    // Remove o botão de revelar senha nativo do Edge/IE
+    &::-ms-reveal {
+      display: none;
+    }
+
+    // Remove o botão de revelar senha nativo do Chrome/Safari (Webkit)
+    &::-webkit-contacts-auto-fill-button,
+    &::-webkit-credentials-auto-fill-button {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    &::placeholder {
+      color: var(--ink-4);
+    }
+
+    &:focus,
+    &.p-focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  }
+
+  // Botão de toggle do PrimeNG — centralizado à direita dentro do wrapper
+  .p-password-toggle-mask-icon,
+  .p-password-show-icon,
+  .p-password-hide-icon {
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-4);
+    cursor: pointer;
+    line-height: 0;
+    background: none;
+    border: none;
+    padding: 0;
+
+    &:hover {
+      color: var(--ink-2);
+    }
+  }
+}
