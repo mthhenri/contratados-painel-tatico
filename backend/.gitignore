@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.local
+
+# Prisma generated client (rebuilt on install)
+# node_modules/@prisma/client is covered by node_modules/ above
+
+# Logs
+*.log
+
+# Coverage
+coverage/

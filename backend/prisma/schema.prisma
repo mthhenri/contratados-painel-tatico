@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SessionStatus {
+  ACTIVE
+  PAUSED
+  FINISHED
+}
+
+enum ParticipantType {
+  PC
+  NPC
+  CREATURE
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique @db.VarChar(255)
+  name         String    @db.VarChar(255)
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  sessions     Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id           String          @id @default(uuid())
+  userId       String
+  user         User            @relation(fields: [userId], references: [id])
+  name         String          @db.VarChar(255)
+  status       SessionStatus   @default(ACTIVE)
+  currentTurn  Int             @default(0)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  participants Participant[]
+
+  @@map("sessions")
+}
+
+model Participant {
+  id         String               @id @default(uuid())
+  sessionId  String
+  session    Session              @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  name       String               @db.VarChar(255)
+  type       ParticipantType
+  initiative Int?
+  hp         Int
+  maxHp      Int
+  energy     Int?
+  maxEnergy  Int?
+  isActive   Boolean              @default(true)
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+  conditions ParticipantCondition[]
+
+  @@map("participants")
+}
+
+model Condition {
+  id          String               @id @default(uuid())
+  name        String               @unique @db.VarChar(100)
+  description String?
+  participants ParticipantCondition[]
+
+  @@map("conditions")
+}
+
+model ParticipantCondition {
+  id            String      @id @default(uuid())
+  participantId String
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  conditionId   String
+  condition     Condition   @relation(fields: [conditionId], references: [id])
+  duration      Int?
+  appliedAt     DateTime    @default(now())
+
+  @@map("participant_conditions")
+}
