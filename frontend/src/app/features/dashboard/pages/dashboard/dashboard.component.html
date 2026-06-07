@@ -1,1 +1,12 @@
-<h1>Dashboard</h1>
+<div class="dashboard">
+  <div class="dashboard__metrics">
+    <div class="dashboard__metric-card">
+      <span class="dashboard__metric-label">Sessões ativas</span>
+      @if (isLoading()) {
+        <span class="dashboard__metric-value dashboard__metric-value--loading">—</span>
+      } @else {
+        <span class="dashboard__metric-value">{{ activeSessions() }}</span>
+      }
+    </div>
+  </div>
+</div>

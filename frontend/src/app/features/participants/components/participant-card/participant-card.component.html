@@ -1,0 +1,78 @@
+<div class="participant-card"
+     [class.participant-card--active]="isActive"
+     [class.participant-card--dead]="isDead">
+
+  <!-- Header -->
+  <div class="participant-card__header">
+    <div class="participant-card__header-left">
+      <span class="participant-card__name">{{ participant.name }}</span>
+      <span class="participant-card__badge">{{ typeLabel }}</span>
+    </div>
+    <span class="participant-card__initiative">
+      {{ participant.initiative !== null ? participant.initiative : '—' }}
+    </span>
+  </div>
+
+  <!-- Body -->
+  <div class="participant-card__body">
+
+    <!-- HP -->
+    <div class="participant-card__stat-box">
+      <span class="participant-card__stat-label">HP</span>
+      <div class="participant-card__stat-value-row">
+        @if (editingHp) {
+          <input
+            class="participant-card__inline-input"
+            type="number"
+            [(ngModel)]="editHpValue"
+            (keydown.enter)="confirmHp()"
+            (keydown.escape)="cancelHp()"
+            (blur)="confirmHp()"
+            autofocus
+          />
+        } @else {
+          <span
+            class="participant-card__stat-value"
+            [class.participant-card__stat-value--critical]="hpCritical"
+            (click)="startEditHp()"
+          >{{ participant.hp }}</span>
+        }
+        <span class="participant-card__stat-max">/ {{ participant.maxHp }}</span>
+      </div>
+      <div class="participant-card__hp-bar">
+        <div
+          class="participant-card__hp-bar-fill"
+          [class.participant-card__hp-bar-fill--critical]="hpCritical"
+          [style.width.%]="hpPercent"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Energia (apenas PC e NPC) -->
+    @if (!isCreature) {
+      <div class="participant-card__stat-box">
+        <span class="participant-card__stat-label">Energia</span>
+        <div class="participant-card__stat-value-row">
+          @if (editingEnergy) {
+            <input
+              class="participant-card__inline-input"
+              type="number"
+              [(ngModel)]="editEnergyValue"
+              (keydown.enter)="confirmEnergy()"
+              (keydown.escape)="cancelEnergy()"
+              (blur)="confirmEnergy()"
+              autofocus
+            />
+          } @else {
+            <span
+              class="participant-card__stat-value"
+              (click)="startEditEnergy()"
+            >{{ participant.energy ?? 0 }}</span>
+          }
+          <span class="participant-card__stat-max">/ {{ participant.maxEnergy ?? 0 }}</span>
+        </div>
+      </div>
+    }
+
+  </div>
+</div>

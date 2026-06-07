@@ -1,0 +1,84 @@
+.participant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 8px 0;
+  }
+
+  &__label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &__divider {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 0 0 12px 0;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__empty {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  &__error {
+    font-size: 12px;
+    color: var(--color-red);
+    margin-bottom: 8px;
+  }
+}
+
+.participant-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__row {
+    display: flex;
+    gap: 12px;
+
+    .participant-form__field {
+      flex: 1;
+    }
+  }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+  &__error {
+    font-size: 12px;
+    color: var(--color-red);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 4px;
+  }
+}

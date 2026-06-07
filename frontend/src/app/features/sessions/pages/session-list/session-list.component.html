@@ -1,1 +1,86 @@
-<h1>Sessões</h1>
+<div class="session-list">
+  <div class="session-list__header">
+    <h1 class="session-list__title">Sessões</h1>
+    <button class="btn btn-primary" (click)="openDialog()">Nova sessão</button>
+  </div>
+
+  @if (loading()) {
+    <div class="session-list__loading">
+      <i class="pi pi-spin pi-spinner"></i>
+      <span>Carregando sessões…</span>
+    </div>
+  } @else if (sessions().length === 0) {
+    <div class="session-list__empty">
+      <p class="session-list__empty-text">Nenhuma sessão encontrada.</p>
+      <button class="btn btn-primary" (click)="openDialog()">Criar primeira sessão</button>
+    </div>
+  } @else {
+    <div class="session-list__grid">
+      @for (session of sessions(); track session.id) {
+        <div class="session-list__card">
+          <div class="session-list__card-header">
+            <span class="session-list__card-name">{{ session.name }}</span>
+            <span
+              class="session-list__badge"
+              [class.session-list__badge--active]="session.status === 'ACTIVE'"
+              [class.session-list__badge--paused]="session.status === 'PAUSED'"
+              [class.session-list__badge--finished]="session.status === 'FINISHED'"
+            >
+              {{ statusLabel(session.status) }}
+            </span>
+          </div>
+          <div class="session-list__card-meta">
+            <span class="session-list__card-date">
+              Criada em {{ session.createdAt | date: 'dd/MM/yyyy \'às\' HH:mm' }}
+            </span>
+          </div>
+          <div class="session-list__card-footer">
+            <button class="btn btn-ghost btn-sm" (click)="openSession(session.id)">Abrir</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  header="Nova sessão"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '400px' }"
+>
+  <form [formGroup]="createForm" (ngSubmit)="submitCreate()" class="session-list__form">
+    @if (errorMsg()) {
+      <p class="session-list__form-error">{{ errorMsg() }}</p>
+    }
+    <div class="session-list__field">
+      <label class="session-list__label" for="session-name">Nome da sessão</label>
+      <input
+        id="session-name"
+        class="session-list__input"
+        type="text"
+        formControlName="name"
+        placeholder="Ex.: Dungeon dos Mortos"
+        autocomplete="off"
+      />
+      @if (createForm.get('name')?.invalid && createForm.get('name')?.touched) {
+        <span class="session-list__field-error">
+          @if (createForm.get('name')?.errors?.['required']) {
+            Nome obrigatório.
+          } @else if (createForm.get('name')?.errors?.['minlength']) {
+            Mínimo de 3 caracteres.
+          }
+        </span>
+      }
+    </div>
+    <div class="session-list__form-actions">
+      <button type="button" class="btn btn-secondary" (click)="closeDialog()">Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="submitting()">
+        @if (submitting()) { Criando… } @else { Criar }
+      </button>
+    </div>
+  </form>
+</p-dialog>

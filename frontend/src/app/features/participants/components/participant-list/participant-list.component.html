@@ -1,0 +1,120 @@
+<div class="participant-list">
+
+  <!-- Section header -->
+  <div class="participant-list__header">
+    <span class="participant-list__label">Participantes</span>
+    <button
+      class="btn btn-ghost btn-sm"
+      type="button"
+      (click)="openDialog()"
+    >
+      + Adicionar participante
+    </button>
+  </div>
+  <hr class="participant-list__divider" />
+
+  @if (error) {
+    <p class="participant-list__error">{{ error }}</p>
+  }
+
+  <!-- Cards -->
+  <div class="participant-list__cards">
+    @for (p of sortedParticipants(); track p.id) {
+      <app-participant-card
+        [participant]="p"
+        [isActive]="p.id === activeParticipantId"
+        (onUpdate)="handleUpdate($event)"
+      />
+    } @empty {
+      <p class="participant-list__empty">Nenhum participante ainda.</p>
+    }
+  </div>
+
+</div>
+
+<!-- Dialog: criar participante -->
+<p-dialog
+  header="Novo Participante"
+  [(visible)]="dialogVisible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '400px' }"
+  (onHide)="closeDialog()"
+>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="participant-form">
+
+    <div class="participant-form__field">
+      <label class="participant-form__label">Nome *</label>
+      <input
+        pInputText
+        formControlName="name"
+        placeholder="Nome do participante"
+        class="w-full"
+      />
+    </div>
+
+    <div class="participant-form__field">
+      <label class="participant-form__label">Tipo *</label>
+      <p-select
+        formControlName="type"
+        [options]="typeOptions"
+        optionLabel="label"
+        optionValue="value"
+        [style]="{ width: '100%' }"
+      />
+    </div>
+
+    <div class="participant-form__row">
+      <div class="participant-form__field">
+        <label class="participant-form__label">HP Máximo *</label>
+        <p-inputNumber formControlName="maxHp" [min]="1" [style]="{ width: '100%' }" />
+      </div>
+      <div class="participant-form__field">
+        <label class="participant-form__label">HP Atual *</label>
+        <p-inputNumber formControlName="currentHp" [min]="0" [style]="{ width: '100%' }" />
+      </div>
+    </div>
+
+    @if (showEnergy) {
+      <div class="participant-form__row">
+        <div class="participant-form__field">
+          <label class="participant-form__label">Energia Máxima</label>
+          <p-inputNumber formControlName="maxEnergy" [min]="0" [style]="{ width: '100%' }" />
+        </div>
+        <div class="participant-form__field">
+          <label class="participant-form__label">Energia Atual</label>
+          <p-inputNumber formControlName="currentEnergy" [min]="0" [style]="{ width: '100%' }" />
+        </div>
+      </div>
+    }
+
+    <div class="participant-form__field">
+      <label class="participant-form__label">Iniciativa</label>
+      <p-inputNumber formControlName="initiative" [style]="{ width: '100%' }" placeholder="Opcional" />
+    </div>
+
+    @if (error) {
+      <p class="participant-form__error">{{ error }}</p>
+    }
+
+    <div class="participant-form__actions">
+      <button
+        type="button"
+        class="btn btn-ghost btn-sm"
+        (click)="closeDialog()"
+        [disabled]="submitting"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary btn-sm"
+        [disabled]="form.invalid || submitting"
+      >
+        {{ submitting ? 'Criando…' : 'Criar' }}
+      </button>
+    </div>
+
+  </form>
+</p-dialog>

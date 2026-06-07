@@ -6,6 +6,8 @@
 
 // Base compartilhada
 .btn {
+  all: unset; // neutraliza Tailwind Preflight e resets do browser antes de qualquer coisa
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;

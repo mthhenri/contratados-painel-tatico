@@ -10,19 +10,27 @@ export const routes: Routes = [
       import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
-    path: 'dashboard',
+    path: '',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/dashboard/dashboard.routes').then(
-        (m) => m.DASHBOARD_ROUTES,
+    loadComponent: () =>
+      import('./shared/components/layout/layout.component').then(
+        (m) => m.LayoutComponent,
       ),
-  },
-  {
-    path: 'sessions',
-    canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/sessions/sessions.routes').then(
-        (m) => m.SESSIONS_ROUTES,
-      ),
+    children: [
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./features/dashboard/dashboard.routes').then(
+            (m) => m.DASHBOARD_ROUTES,
+          ),
+      },
+      {
+        path: 'sessions',
+        loadChildren: () =>
+          import('./features/sessions/sessions.routes').then(
+            (m) => m.SESSIONS_ROUTES,
+          ),
+      },
+    ],
   },
 ];

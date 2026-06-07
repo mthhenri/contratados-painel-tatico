@@ -171,7 +171,7 @@ Criar a tela de login com formulário de e-mail e senha.
 
 ## Fase 2 — Sessões de Combate
 
-### T-010 · Módulo de sessões (backend)
+### [x] T-010 · Módulo de sessões (backend)
 
 Implementar CRUD completo de sessões de combate.
 
@@ -193,7 +193,7 @@ Implementar CRUD completo de sessões de combate.
 
 ---
 
-### T-011 · Serviço de sessões (frontend)
+### [x] T-011 · Serviço de sessões (frontend)
 
 Criar o serviço Angular para consumir as rotas de sessões.
 
@@ -209,7 +209,7 @@ Criar o serviço Angular para consumir as rotas de sessões.
 
 ---
 
-### T-012 · Página de listagem de sessões
+### [x] T-012 · Página de listagem de sessões
 
 Exibir a lista de sessões do mestre com opções de criar e abrir.
 
@@ -227,7 +227,7 @@ Exibir a lista de sessões do mestre com opções de criar e abrir.
 
 ---
 
-### T-013 · Layout principal e dashboard
+### [x] T-013 · Layout principal e dashboard
 
 Criar o componente de layout com navegação lateral e a página de dashboard.
 
@@ -246,7 +246,7 @@ Criar o componente de layout com navegação lateral e a página de dashboard.
 
 ## Fase 3 — Participantes
 
-### T-014 · Módulo de participantes (backend)
+### [x] T-014 · Módulo de participantes (backend)
 
 Implementar CRUD de participantes aninhado nas sessões.
 
@@ -267,7 +267,7 @@ Implementar CRUD de participantes aninhado nas sessões.
 
 ---
 
-### T-015 · Serviço de participantes (frontend)
+### [x] T-015 · Serviço de participantes (frontend)
 
 Criar o serviço Angular para consumir as rotas de participantes.
 
@@ -282,7 +282,7 @@ Criar o serviço Angular para consumir as rotas de participantes.
 
 ---
 
-### T-016 · Componente de card de participante
+### [x] T-016 · Componente de card de participante
 
 Exibir e editar os atributos de um participante (HP, Energia, iniciativa, condições).
 
@@ -299,7 +299,7 @@ Exibir e editar os atributos de um participante (HP, Energia, iniciativa, condi�
 
 ---
 
-### T-017 · Componente de lista de participantes
+### [x] T-017 · Componente de lista de participantes
 
 Renderizar todos os participantes de uma sessão em ordem de iniciativa.
 

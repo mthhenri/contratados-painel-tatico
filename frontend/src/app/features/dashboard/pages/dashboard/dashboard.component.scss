@@ -1,0 +1,37 @@
+.dashboard {
+  max-width: 900px;
+}
+
+.dashboard__metrics {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dashboard__metric-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.dashboard__metric-label {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dashboard__metric-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+
+  &--loading {
+    color: var(--color-text-muted);
+  }
+}
