@@ -1,4 +1,45 @@
-<div>
-  <h1>Login</h1>
-  <p-button label="Entrar" />
+<div class="login">
+  <div class="login__card">
+    <h1 class="login__title">Painel Tático</h1>
+    <p class="login__subtitle">Acesso do Mestre</p>
+
+    @if (errorMessage()) {
+      <p-message severity="error" [text]="errorMessage()!" styleClass="login__error" />
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="login__form">
+      <div class="login__field">
+        <label for="email" class="login__label">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          formControlName="email"
+          placeholder="mestre@exemplo.com"
+          class="login__input"
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="login__field">
+        <label for="password" class="login__label">Senha</label>
+        <p-password
+          inputId="password"
+          formControlName="password"
+          [feedback]="false"
+          [toggleMask]="true"
+          styleClass="login__input"
+          autocomplete="current-password"
+        />
+      </div>
+
+      <p-button
+        type="submit"
+        label="Entrar"
+        [loading]="loading()"
+        [disabled]="form.invalid || loading()"
+        styleClass="login__btn"
+      />
+    </form>
+  </div>
 </div>

@@ -99,7 +99,7 @@ Popular o catálogo de condições com as 28 condições oficiais do sistema Con
 
 ## Fase 1 — Autenticação
 
-### T-006 · Módulo de usuários
+### [x] T-006 · Módulo de usuários
 
 Criar o módulo de usuários com serviço de busca por e-mail.
 
@@ -114,7 +114,7 @@ Criar o módulo de usuários com serviço de busca por e-mail.
 
 ---
 
-### T-007 · Módulo de autenticação (backend)
+### [x] T-007 · Módulo de autenticação (backend)
 
 Implementar login com JWT. Criar guard para proteger rotas autenticadas.
 
@@ -134,7 +134,7 @@ Implementar login com JWT. Criar guard para proteger rotas autenticadas.
 
 ---
 
-### T-008 · Autenticação no frontend (serviço e guard)
+### [x] T-008 · Autenticação no frontend (serviço e guard)
 
 Implementar `AuthService`, `AuthGuard` e `AuthInterceptor` no Angular.
 
@@ -152,7 +152,7 @@ Implementar `AuthService`, `AuthGuard` e `AuthInterceptor` no Angular.
 
 ---
 
-### T-009 · Página de login
+### [x] T-009 · Página de login
 
 Criar a tela de login com formulário de e-mail e senha.
 
