@@ -155,6 +155,62 @@ frontend/
 
 ---
 
+## UI/UX
+
+### Estilização
+
+- **Tailwind CSS** para layout, espaçamento, tipografia e cores utilitárias
+- **SCSS + BEM** para estilos específicos de componente que o Tailwind não cobre bem (estados complexos, variações de tema, animações)
+- Convenção BEM: `bloco__elemento--modificador`, sempre em kebab-case (ex: `participant-card__hp-bar--critical`)
+- Componentes PrimeNG customizados via `pt` (PassThrough API) — nunca sobrescrever CSS global do PrimeNG
+- Paleta de cores e tokens definidos em `frontend/src/styles/tokens.scss` e espelhados no `tailwind.config.ts`
+
+### Tokens e tema
+
+- `frontend/src/styles/tokens.scss` — fonte única de verdade para cores, espaçamentos e tipografia
+- `tailwind.config.ts` — espelha os tokens como valores estáticos e via CSS custom properties
+- `styles.scss` reservado para: import dos tokens, import da Inter (Google Fonts), tema PrimeNG e reset global
+
+### Identidade visual
+
+**Conceito:** tensão controlada. Interface limpa e funcional, sem decoração — a clareza das informações de combate é a prioridade.
+
+**Restrições absolutas:**
+- Sem gradientes
+- Sem `box-shadow` — separação visual feita exclusivamente com bordas (`1px solid var(--color-border)`) e diferença de cor de fundo
+- Sem `font-weight` ≥ 700
+- Sem `border-radius` > 8px
+- Sem `style=""` inline nos templates
+
+**Paleta de cores:**
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--color-bg-base` | `#0d0d0d` | Fundo principal |
+| `--color-bg-surface` | `#1a1a1a` | Cards e painéis |
+| `--color-bg-elevated` | `#242424` | Modais, dropdowns |
+| `--color-bg-subtle` | `#2e2e2e` | Hover, separadores |
+| `--color-red-strong` | `#c0392b` | Ações primárias, participante ativo, HP crítico |
+| `--color-red-mid` | `#e74c3c` | Hover de ações primárias |
+| `--color-red-muted` | `#7d2a22` | Badges de condição, status |
+| `--color-red-subtle` | `#3d1a17` | Fundo de alertas |
+| `--color-text-primary` | `#f0f0f0` | Texto principal |
+| `--color-text-secondary` | `#a0a0a0` | Labels, metadados |
+| `--color-text-muted` | `#5a5a5a` | Placeholders, desabilitados |
+| `--color-border` | `#2e2e2e` | Bordas padrão |
+| `--color-border-strong` | `#444444` | Bordas de destaque |
+
+**Tipografia:**
+- Família: `Inter` (Google Fonts, pesos 400/500/600)
+- Escala: 12 / 14 / 16 / 20 / 24px
+- Peso máximo: 600 (semibold)
+
+**Forma:**
+- `border-radius`: 4px padrão, 8px para cards, `9999px` para pílulas/badges
+- Bordas: `1px solid var(--color-border)`
+
+---
+
 ## 2. Contratos das rotas de API
 
 Base URL: `/api`

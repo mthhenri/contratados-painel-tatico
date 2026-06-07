@@ -52,6 +52,15 @@ backend/src/
 - HTTP: provideHttpClient() com interceptors funcionais
 - Evitar any: usar tipos explícitos em todos os serviços
 
+## Regras de UI
+
+- Tailwind para layout, espaçamento, cores e tipografia
+- BEM em SCSS apenas quando Tailwind não for suficiente (ex: `participant-card__hp-bar--critical`)
+- Nunca usar `style=""` inline nos templates
+- Nunca sobrescrever classes do PrimeNG com CSS global — usar PassThrough API (`pt="{...}"`)
+- Componentes standalone: estilos no próprio `.scss` do componente, nunca em `styles.scss`
+- `styles.scss` reservado para: import dos tokens, tema PrimeNG e reset global
+
 ## Regras Backend
 - Validação com class-validator em todos os DTOs
 - Erros: sempre lançar HttpException com código semântico

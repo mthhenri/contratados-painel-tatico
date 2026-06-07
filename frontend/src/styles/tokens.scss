@@ -1,0 +1,93 @@
+// =============================================================================
+// Design Tokens — Painel Tático do Mestre
+// Fonte única de verdade para cores, espaçamento e tipografia.
+// Espelhados em tailwind.config.ts via CSS custom properties.
+// =============================================================================
+
+:root {
+  // ---------------------------------------------------------------------------
+  // Fundos e superfícies
+  // ---------------------------------------------------------------------------
+  --color-bg-base:     #0d0d0d;  // fundo principal — quase preto
+  --color-bg-surface:  #1a1a1a;  // cards e painéis
+  --color-bg-elevated: #242424;  // dropdowns, modais, elementos elevados
+  --color-bg-subtle:   #2e2e2e;  // hover, separadores
+
+  // ---------------------------------------------------------------------------
+  // Vermelhos — ação, perigo, destaque tático
+  // ---------------------------------------------------------------------------
+  --color-red-strong: #c0392b;  // ações primárias, participante ativo, HP crítico
+  --color-red-mid:    #e74c3c;  // hover de ações primárias
+  --color-red-muted:  #7d2a22;  // badges de status, condições ativas
+  --color-red-subtle: #3d1a17;  // fundo de alertas, highlight sutil
+
+  // ---------------------------------------------------------------------------
+  // Texto e bordas
+  // ---------------------------------------------------------------------------
+  --color-text-primary:   #f0f0f0;
+  --color-text-secondary: #a0a0a0;
+  --color-text-muted:     #5a5a5a;
+
+  --color-border:        #2e2e2e;
+  --color-border-strong: #444444;
+
+  // ---------------------------------------------------------------------------
+  // Status vitais (HP e Energia — usados nos cards de participante)
+  // ---------------------------------------------------------------------------
+  --color-status-hp:          #4caf79;  // vida normal
+  --color-status-hp-low:      #f59e0b;  // vida baixa (≤ 50 %)
+  --color-status-hp-critical: var(--color-red-strong);  // vida crítica (≤ 25 %)
+  --color-status-energy:      #60a5fa;  // energia
+  --color-status-condition:   #9b7fd4;  // badge de condição
+
+  // ---------------------------------------------------------------------------
+  // Tipografia
+  // ---------------------------------------------------------------------------
+  --font-family-base: 'Inter', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  --font-size-xs:   0.75rem;   // 12px
+  --font-size-sm:   0.875rem;  // 14px
+  --font-size-base: 1rem;      // 16px
+  --font-size-lg:   1.25rem;   // 20px
+  --font-size-xl:   1.5rem;    // 24px
+
+  --font-weight-normal:   400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  // Nunca usar 700 ou superior — viola a identidade visual
+
+  --line-height-tight:   1.25;
+  --line-height-normal:  1.5;
+  --line-height-relaxed: 1.75;
+
+  // ---------------------------------------------------------------------------
+  // Espaçamento
+  // ---------------------------------------------------------------------------
+  --spacing-xs:  0.25rem;  //  4px
+  --spacing-sm:  0.5rem;   //  8px
+  --spacing-md:  1rem;     // 16px
+  --spacing-lg:  1.5rem;   // 24px
+  --spacing-xl:  2rem;     // 32px
+  --spacing-2xl: 3rem;     // 48px
+
+  // ---------------------------------------------------------------------------
+  // Bordas e raios
+  // 4px padrão, 8px para cards — sem exagero
+  // ---------------------------------------------------------------------------
+  --radius-sm:   0.25rem;  //  4px — padrão
+  --radius-md:   0.5rem;   //  8px — cards
+  --radius-full: 9999px;   // pílulas (badges de condição)
+
+  // ---------------------------------------------------------------------------
+  // Sombras — desabilitadas por padrão
+  // Separação visual feita com bordas e cor de fundo, nunca com sombra
+  // ---------------------------------------------------------------------------
+  --shadow-none: none;
+
+  // ---------------------------------------------------------------------------
+  // Transições
+  // ---------------------------------------------------------------------------
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+}

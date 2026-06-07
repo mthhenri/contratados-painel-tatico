@@ -1,10 +1,19 @@
+// @use rules devem vir primeiro (exigência do SCSS)
+@use 'styles/tokens';
 @use 'primeicons/primeicons.css';
 
-:root {
-  font-family: system-ui, -apple-system, sans-serif;
-}
+// Inter — importada via Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-* {
+// Tailwind directives
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Reset global
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -13,4 +22,11 @@
 html,
 body {
   height: 100%;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
