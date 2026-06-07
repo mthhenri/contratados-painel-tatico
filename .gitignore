@@ -19,6 +19,9 @@ desktop.ini
 npm-debug.log*
 yarn-error.log*
 
+# Claude Code
+.claude/
+
 # IDE
 .idea/
 .vscode/*
