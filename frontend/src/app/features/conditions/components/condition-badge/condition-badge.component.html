@@ -1,0 +1,16 @@
+<span
+  class="condition-badge"
+  [pTooltip]="condition.description || condition.name"
+  tooltipPosition="top"
+>
+  <span class="condition-badge__name">{{ condition.name }}</span>
+  @if (condition.duration !== null) {
+    <span class="condition-badge__duration">({{ condition.duration }})</span>
+  }
+  <button
+    class="condition-badge__remove"
+    type="button"
+    (click)="remove()"
+    aria-label="Remover condição"
+  >×</button>
+</span>

@@ -1,0 +1,46 @@
+<div class="initiative-tracker">
+
+  <div class="initiative-tracker__bar">
+
+    <div class="initiative-tracker__turn-info">
+      <span class="initiative-tracker__round-label">Rodada</span>
+      <span class="initiative-tracker__round-number">{{ roundNumber() }}</span>
+    </div>
+
+    <div class="initiative-tracker__active-info">
+      @if (activeParticipant(); as p) {
+        <span class="initiative-tracker__active-name">{{ p.name }}</span>
+        @if (p.initiative !== null) {
+          <span class="initiative-tracker__active-initiative">INI {{ p.initiative }}</span>
+        }
+      } @else {
+        <span class="initiative-tracker__empty">Sem participantes ativos</span>
+      }
+    </div>
+
+    <div class="initiative-tracker__actions">
+      <button
+        class="btn btn-secondary btn-sm"
+        type="button"
+        (click)="reset()"
+        [disabled]="loading"
+      >
+        Reiniciar
+      </button>
+      <button
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="advance()"
+        [disabled]="loading"
+      >
+        Próximo
+      </button>
+    </div>
+
+  </div>
+
+  @if (error) {
+    <p class="initiative-tracker__error">{{ error }}</p>
+  }
+
+</div>

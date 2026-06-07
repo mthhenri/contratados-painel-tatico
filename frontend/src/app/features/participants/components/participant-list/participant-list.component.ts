@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
@@ -20,6 +22,7 @@ import { ParticipantCardComponent, ParticipantUpdateEvent } from '../participant
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    ConfirmDialogModule,
     DialogModule,
     SelectModule,
     ButtonModule,
@@ -27,6 +30,7 @@ import { ParticipantCardComponent, ParticipantUpdateEvent } from '../participant
     InputTextModule,
     ParticipantCardComponent,
   ],
+  providers: [ConfirmationService],
   templateUrl: './participant-list.component.html',
   styleUrl: './participant-list.component.scss',
 })
@@ -36,6 +40,7 @@ export class ParticipantListComponent implements OnInit {
 
   private readonly service = inject(ParticipantsService);
   private readonly fb = inject(FormBuilder);
+  private readonly confirmationService = inject(ConfirmationService);
 
   participants = signal<Participant[]>([]);
   dialogVisible = false;
@@ -130,6 +135,21 @@ export class ParticipantListComponent implements OnInit {
       error: () => {
         this.submitting = false;
         this.error = 'Erro ao criar participante.';
+      },
+    });
+  }
+
+  confirmRemove(participantId: string): void {
+    this.confirmationService.confirm({
+      message: 'Deseja remover este participante?',
+      header: 'Remover Participante',
+      acceptLabel: 'Remover',
+      rejectLabel: 'Cancelar',
+      accept: () => {
+        this.service.remove(this.sessionId, participantId).subscribe({
+          next: () => this.load(),
+          error: () => (this.error = 'Erro ao remover participante.'),
+        });
       },
     });
   }

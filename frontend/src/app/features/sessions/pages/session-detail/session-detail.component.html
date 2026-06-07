@@ -1,1 +1,45 @@
-<h1>Detalhe da Sessão</h1>
+<p-confirmDialog />
+
+@if (loading()) {
+  <p class="session-detail__loading">Carregando sessão…</p>
+} @else if (error()) {
+  <p class="session-detail__error">{{ error() }}</p>
+} @else if (session(); as s) {
+  <div class="session-detail">
+
+    <!-- Topbar -->
+    <div class="session-detail__topbar">
+      <button class="btn btn-ghost btn-sm" type="button" (click)="goBack()">
+        ← Sessões
+      </button>
+      <span class="session-detail__title">{{ s.name }}</span>
+      <span
+        class="session-detail__status-badge"
+        [class.session-detail__status-badge--active]="s.status === 'ACTIVE'"
+        [class.session-detail__status-badge--paused]="s.status === 'PAUSED'"
+        [class.session-detail__status-badge--finished]="s.status === 'FINISHED'"
+      >
+        {{ statusLabel(s.status) }}
+      </span>
+      @if (s.status !== 'FINISHED') {
+        <button class="btn btn-ghost btn-sm" type="button" (click)="confirmEndSession()">
+          Encerrar sessão
+        </button>
+      }
+    </div>
+
+    <!-- Initiative tracker -->
+    <div class="session-detail__section">
+      <app-initiative-tracker [session]="s" />
+    </div>
+
+    <!-- Participant list -->
+    <div class="session-detail__section">
+      <app-participant-list
+        [sessionId]="s.id"
+        [currentTurn]="currentTurn"
+      />
+    </div>
+
+  </div>
+}

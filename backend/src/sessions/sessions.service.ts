@@ -36,6 +36,7 @@ export class SessionsService {
         ...p,
         conditions: p.conditions.map((pc) => ({
           id: pc.id,
+          conditionId: pc.conditionId,
           name: pc.condition.name,
           duration: pc.duration,
         })),

@@ -316,7 +316,7 @@ Renderizar todos os participantes de uma sessão em ordem de iniciativa.
 
 ## Fase 4 — Iniciativa
 
-### T-018 · Módulo de iniciativa (backend)
+### [x] T-018 · Módulo de iniciativa (backend)
 
 Implementar a lógica de avanço e reset de turno.
 
@@ -333,7 +333,7 @@ Implementar a lógica de avanço e reset de turno.
 
 ---
 
-### T-019 · Serviço e componente de controle de iniciativa (frontend)
+### [x] T-019 · Serviço e componente de controle de iniciativa (frontend)
 
 Exibir a ordem de iniciativa e permitir avançar/resetar o turno.
 
@@ -352,7 +352,7 @@ Exibir a ordem de iniciativa e permitir avançar/resetar o turno.
 
 ## Fase 5 — Condições
 
-### T-020 · Módulo de condições (backend)
+### [x] T-020 · Módulo de condições (backend)
 
 Implementar o endpoint de catálogo e as rotas de aplicação/remoção de condições em participantes.
 
@@ -371,7 +371,7 @@ Implementar o endpoint de catálogo e as rotas de aplicação/remoção de condi
 
 ---
 
-### T-021 · Serviço de condições (frontend)
+### [x] T-021 · Serviço de condições (frontend)
 
 Criar o serviço Angular para consumir o catálogo e as rotas de condições.
 
@@ -385,7 +385,7 @@ Criar o serviço Angular para consumir o catálogo e as rotas de condições.
 
 ---
 
-### T-022 · Componente de badge de condição
+### [x] T-022 · Componente de badge de condição
 
 Exibir as condições ativas de um participante com opção de remover.
 
@@ -400,7 +400,7 @@ Exibir as condições ativas de um participante com opção de remover.
 
 ---
 
-### T-023 · Integração de condições no card de participante
+### [x] T-023 · Integração de condições no card de participante
 
 Conectar a UI de condições ao `ParticipantCard`.
 
@@ -418,7 +418,7 @@ Conectar a UI de condições ao `ParticipantCard`.
 
 ## Fase 6 — Página de Sessão
 
-### T-024 · Página de detalhe da sessão
+### [x] T-024 · Página de detalhe da sessão
 
 Compor a tela principal de combate reunindo todos os componentes.
 
@@ -437,7 +437,7 @@ Compor a tela principal de combate reunindo todos os componentes.
 
 ## Fase 7 — Qualidade e Entrega
 
-### T-025 · Documentação Swagger completa
+### [x] T-025 · Documentação Swagger completa
 
 Garantir que todos os endpoints estão documentados com decorators do `@nestjs/swagger`.
 
@@ -450,7 +450,7 @@ Garantir que todos os endpoints estão documentados com decorators do `@nestjs/s
 
 ---
 
-### T-026 · Atualização do CLAUDE.md
+### [x] T-026 · Atualização do CLAUDE.md
 
 Registrar o stack, comandos de build/test e estrutura do projeto.
 

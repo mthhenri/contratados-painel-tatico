@@ -11,17 +11,30 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiParam,
+} from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 
+@ApiTags('participants')
+@ApiBearerAuth()
 @UseGuards(AuthGuard)
 @Controller('sessions/:sessionId/participants')
 export class ParticipantsController {
   constructor(private readonly participants: ParticipantsService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Listar participantes de uma sessão' })
+  @ApiParam({ name: 'sessionId', description: 'ID da sessão' })
+  @ApiResponse({ status: 200, description: 'Lista de participantes ordenada por iniciativa.' })
+  @ApiResponse({ status: 404, description: 'Sessão não encontrada.' })
   async findAll(
     @Param('sessionId') sessionId: string,
     @Request() req: { user: { id: string } },
@@ -32,6 +45,10 @@ export class ParticipantsController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Adicionar participante à sessão' })
+  @ApiParam({ name: 'sessionId', description: 'ID da sessão' })
+  @ApiResponse({ status: 201, description: 'Participante criado.' })
+  @ApiResponse({ status: 404, description: 'Sessão não encontrada.' })
   async create(
     @Param('sessionId') sessionId: string,
     @Body() dto: CreateParticipantDto,
@@ -42,6 +59,11 @@ export class ParticipantsController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Atualizar atributos de um participante' })
+  @ApiParam({ name: 'sessionId', description: 'ID da sessão' })
+  @ApiParam({ name: 'id', description: 'ID do participante' })
+  @ApiResponse({ status: 200, description: 'Participante atualizado.' })
+  @ApiResponse({ status: 404, description: 'Participante não encontrado.' })
   async update(
     @Param('sessionId') sessionId: string,
     @Param('id') id: string,
@@ -54,6 +76,11 @@ export class ParticipantsController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Remover participante da sessão' })
+  @ApiParam({ name: 'sessionId', description: 'ID da sessão' })
+  @ApiParam({ name: 'id', description: 'ID do participante' })
+  @ApiResponse({ status: 204, description: 'Participante removido.' })
+  @ApiResponse({ status: 404, description: 'Participante não encontrado.' })
   async remove(
     @Param('sessionId') sessionId: string,
     @Param('id') id: string,

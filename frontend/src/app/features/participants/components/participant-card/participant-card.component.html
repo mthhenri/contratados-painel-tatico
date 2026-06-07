@@ -75,4 +75,51 @@
     }
 
   </div>
+
+  <!-- Condições -->
+  <div class="participant-card__conditions">
+
+    <!-- Condições aplicadas -->
+    @if (enrichedConditions.length > 0) {
+      <div class="participant-card__condition-list">
+        @for (cond of enrichedConditions; track cond.id) {
+          <app-condition-badge
+            [condition]="cond"
+            (onRemove)="removeCondition($event)"
+          />
+        }
+      </div>
+    }
+
+    <!-- Aplicar condição -->
+    <div class="participant-card__apply-condition">
+      <p-select
+        [options]="catalogOptions"
+        [(ngModel)]="selectedConditionId"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Condição..."
+        [pt]="{ root: { class: 'participant-card__condition-select' } }"
+      />
+      <p-inputNumber
+        [(ngModel)]="conditionDuration"
+        [min]="1"
+        placeholder="Dur."
+        [pt]="{ root: { class: 'participant-card__condition-duration' } }"
+        [showButtons]="false"
+      />
+      <button
+        class="btn btn-ghost btn-sm"
+        type="button"
+        [disabled]="!selectedConditionId || applyingCondition"
+        (click)="applyCondition()"
+      >Aplicar</button>
+    </div>
+
+    @if (conditionError) {
+      <span class="participant-card__condition-error">{{ conditionError }}</span>
+    }
+
+  </div>
+
 </div>

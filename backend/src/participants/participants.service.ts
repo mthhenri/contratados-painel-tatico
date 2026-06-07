@@ -13,9 +13,22 @@ export class ParticipantsService {
     const participants = await this.prisma.participant.findMany({
       where: { sessionId },
       orderBy: [{ initiative: { sort: 'desc', nulls: 'last' } }],
+      include: {
+        conditions: {
+          include: { condition: true },
+        },
+      },
     });
 
-    return participants;
+    return participants.map((p) => ({
+      ...p,
+      conditions: p.conditions.map((pc) => ({
+        id: pc.id,
+        conditionId: pc.conditionId,
+        name: pc.condition.name,
+        duration: pc.duration,
+      })),
+    }));
   }
 
   async create(sessionId: string, userId: string, dto: CreateParticipantDto) {

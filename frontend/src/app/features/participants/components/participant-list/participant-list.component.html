@@ -1,3 +1,5 @@
+<p-confirmDialog />
+
 <div class="participant-list">
 
   <!-- Section header -->
@@ -20,11 +22,22 @@
   <!-- Cards -->
   <div class="participant-list__cards">
     @for (p of sortedParticipants(); track p.id) {
-      <app-participant-card
-        [participant]="p"
-        [isActive]="p.id === activeParticipantId"
-        (onUpdate)="handleUpdate($event)"
-      />
+      <div class="participant-list__card-wrapper">
+        <app-participant-card
+          [participant]="p"
+          [sessionId]="sessionId"
+          [isActive]="p.id === activeParticipantId"
+          (onUpdate)="handleUpdate($event)"
+          (onReload)="load()"
+        />
+        <button
+          class="btn btn-danger btn-sm participant-list__remove-btn"
+          type="button"
+          (click)="confirmRemove(p.id)"
+        >
+          Remover
+        </button>
+      </div>
     } @empty {
       <p class="participant-list__empty">Nenhum participante ainda.</p>
     }

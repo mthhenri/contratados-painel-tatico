@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { ParticipantCondition } from '../../conditions/services/conditions.service';
 
 export type ParticipantType = 'PC' | 'NPC' | 'CREATURE';
 
@@ -17,7 +18,7 @@ export interface Participant {
   energy: number | null;
   maxEnergy: number | null;
   isActive: boolean;
-  conditions: { id: string; name: string; duration: number | null }[];
+  conditions: ParticipantCondition[];
 }
 
 export interface CreateParticipantDto {

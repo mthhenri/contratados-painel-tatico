@@ -30,6 +30,22 @@
     gap: 8px;
   }
 
+  &__card-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    app-participant-card {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  &__remove-btn {
+    flex-shrink: 0;
+    margin-top: 12px;
+  }
+
   &__empty {
     font-size: 13px;
     color: var(--color-text-muted);

@@ -71,26 +71,41 @@ backend/src/
 - Variáveis de ambiente: acessar via ConfigService, nunca process.env diretamente
 - Nunca commitar .env — usar .env.example como template
 
-## Comandos do ambiente (Fase 0 — verificados)
+## Comandos do ambiente
 
 ### Subir o ambiente completo
 ```bash
-# Na raiz do projeto
-docker compose up -d db          # sobe apenas o PostgreSQL
-cd backend && npm run start:dev  # backend em modo watch (porta 3000)
-cd frontend && npm start          # frontend Angular dev server (porta 4200)
+# Na raiz do projeto — sobe todos os serviços (db, backend, frontend)
+docker compose up -d
+
+# Subir apenas o banco (útil durante desenvolvimento local)
+docker compose up -d db
+cd backend && npm run start:dev   # backend em modo watch (porta 3000)
+cd frontend && npm start           # frontend Angular dev server (porta 4200)
 ```
 
-### Migrations e seed
+### Migrations e seed via Docker
+```bash
+docker compose exec backend npx prisma migrate dev --name <nome>   # nova migration
+docker compose exec backend npx prisma migrate deploy               # aplica em produção
+docker compose exec backend npm run prisma:seed                     # seed de condições (idempotente)
+```
+
+### Migrations e seed locais (fora do Docker)
 ```bash
 cd backend
-npx prisma migrate dev --name <nome>   # cria e aplica nova migration
-npx prisma migrate deploy              # aplica migrations em produção
-npm run prisma:seed                    # popula condições do RPG (idempotente)
+npx prisma migrate dev --name <nome>
+npm run prisma:seed
+```
+
+### Acompanhar logs
+```bash
+docker compose logs -f backend    # logs do backend em tempo real
+docker compose logs -f            # logs de todos os serviços
 ```
 
 ### Documentação da API
-Acesse http://localhost:3000/api/docs (Swagger UI, disponível apenas com o backend rodando)
+Acesse http://localhost:3000/api/docs (Swagger UI — disponível com o backend rodando)
 
 ### Acesso direto ao banco
 ```bash
@@ -108,6 +123,20 @@ com o padrão do ecossistema NestJS.
 ### Angular 21 ao invés de Angular 22+
 Angular 22+ exige Node v24.15+. O ambiente de desenvolvimento usa Node v24.11, portanto o projeto usa
 **Angular 21** (`@angular/cli@21`), que permanece compatível.
+
+### Angular Signals para estado de turno
+O `InitiativeTrackerComponent` gerencia o estado de turno via `signal<number>` e `signal<string | null>`
+para `currentTurn` e `activeParticipantId`. A `SessionDetailComponent` lê esses signals via `@ViewChild`
+e os repassa ao `ParticipantListComponent` através de property binding.
+
+### `activeParticipantId` público no tracker
+O signal `activeParticipantId` é público em `InitiativeTrackerComponent` para que a `SessionDetailComponent`
+possa lê-lo via `@ViewChild` e sincronizar o destaque visual no `ParticipantListComponent`.
+
+### `assertOwnership` em todos os módulos de sessão
+Todos os módulos que acessam recursos de sessão (`sessions`, `participants`, `initiative`, `conditions`)
+verificam que a sessão pertence ao mestre autenticado antes de qualquer operação. Requisições a recursos
+de outro usuário retornam 404 (não 403) para não vazar informação sobre a existência do recurso.
 
 ## Aprovação obrigatória
 Antes de avançar de uma fase para outra, aguardar confirmação explícita.
