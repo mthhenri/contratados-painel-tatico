@@ -12,6 +12,7 @@ import { ParticipantCondition } from '../../services/conditions.service';
 })
 export class ConditionBadgeComponent {
   @Input() condition!: ParticipantCondition;
+  @Input() readonly = false;
   @Output() onRemove = new EventEmitter<string>();
 
   remove(): void {

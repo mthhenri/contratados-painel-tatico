@@ -37,6 +37,7 @@ import { ParticipantCardComponent, ParticipantUpdateEvent } from '../participant
 export class ParticipantListComponent implements OnInit {
   @Input() sessionId!: string;
   @Input() currentTurn = 0;
+  @Input() readonly = false;
 
   private readonly service = inject(ParticipantsService);
   private readonly fb = inject(FormBuilder);
@@ -46,6 +47,10 @@ export class ParticipantListComponent implements OnInit {
   dialogVisible = false;
   submitting = false;
   error = '';
+
+  readonly selectPt = {
+    label: { style: 'flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap' },
+  };
 
   sortedParticipants = computed(() => {
     return [...this.participants()].sort((a, b) => {

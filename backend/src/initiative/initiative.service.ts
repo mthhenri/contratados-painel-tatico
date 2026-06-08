@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -13,14 +13,14 @@ export class InitiativeService {
       return { currentTurn: session.currentTurn, activeParticipantId: null };
     }
 
-    const next = (session.currentTurn + 1) % actives.length;
+    const next = session.currentTurn + 1;
 
     await this.prisma.session.update({
       where: { id: sessionId },
       data: { currentTurn: next },
     });
 
-    return { currentTurn: next, activeParticipantId: actives[next].id };
+    return { currentTurn: next, activeParticipantId: actives[next % actives.length].id };
   }
 
   async reset(sessionId: string, userId: string) {
@@ -78,6 +78,9 @@ export class InitiativeService {
       where: { id: sessionId, userId },
     });
     if (!session) throw new NotFoundException('Sessão não encontrada');
+    if (session.status === 'FINISHED') {
+      throw new ForbiddenException('Sessão encerrada não pode ser alterada');
+    }
     return session;
   }
 

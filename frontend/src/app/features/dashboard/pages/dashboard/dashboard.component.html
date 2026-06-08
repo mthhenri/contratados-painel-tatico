@@ -1,4 +1,6 @@
 <div class="dashboard">
+
+  <!-- Métricas -->
   <div class="dashboard__metrics">
     <div class="dashboard__metric-card">
       <span class="dashboard__metric-label">Sessões ativas</span>
@@ -8,5 +10,101 @@
         <span class="dashboard__metric-value">{{ activeSessions() }}</span>
       }
     </div>
+    <div class="dashboard__metric-card">
+      <span class="dashboard__metric-label">Total de sessões</span>
+      @if (isLoading()) {
+        <span class="dashboard__metric-value dashboard__metric-value--loading">—</span>
+      } @else {
+        <span class="dashboard__metric-value">{{ totalSessions() }}</span>
+      }
+    </div>
+    <div class="dashboard__metric-card">
+      <span class="dashboard__metric-label">Encerradas</span>
+      @if (isLoading()) {
+        <span class="dashboard__metric-value dashboard__metric-value--loading">—</span>
+      } @else {
+        <span class="dashboard__metric-value">{{ finishedSessions() }}</span>
+      }
+    </div>
   </div>
+
+  <!-- Ações rápidas -->
+  <div class="dashboard__actions">
+    <button class="btn btn-primary" (click)="openDialog()">
+      <i class="pi pi-plus"></i>
+      Nova sessão
+    </button>
+    <button class="btn btn-secondary" (click)="goToSessions()">
+      Ver todas as sessões
+    </button>
+  </div>
+
+  <!-- Última sessão ativa -->
+  @if (!isLoading()) {
+    @if (lastActiveSession(); as session) {
+      <div class="dashboard__last-session">
+        <span class="dashboard__last-session-label">Sessão em andamento</span>
+        <div class="dashboard__last-session-card">
+          <div class="dashboard__last-session-info">
+            <span class="dashboard__last-session-name">{{ session.name }}</span>
+            <span class="dashboard__last-session-badge">Ativa</span>
+          </div>
+          <button class="btn btn-primary btn-sm" (click)="openSession(session.id)">
+            <i class="pi pi-play"></i>
+            Continuar
+          </button>
+        </div>
+      </div>
+    } @else if (totalSessions() === 0) {
+      <div class="dashboard__empty">
+        <i class="pi pi-sword dashboard__empty-icon"></i>
+        <p class="dashboard__empty-text">Nenhuma sessão criada ainda.</p>
+        <p class="dashboard__empty-sub">Crie sua primeira sessão para começar o combate.</p>
+        <button class="btn btn-primary" (click)="openDialog()">Criar primeira sessão</button>
+      </div>
+    }
+  }
 </div>
+
+<!-- Diálogo: nova sessão -->
+<p-dialog
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  header="Nova sessão"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '400px' }"
+>
+  <form [formGroup]="createForm" (ngSubmit)="submitCreate()" class="dashboard__form">
+    @if (errorMsg()) {
+      <p class="dashboard__form-error">{{ errorMsg() }}</p>
+    }
+    <div class="dashboard__field">
+      <label class="dashboard__label" for="dash-session-name">Nome da sessão</label>
+      <input
+        id="dash-session-name"
+        class="dashboard__input"
+        type="text"
+        formControlName="name"
+        placeholder="Ex.: Dungeon dos Mortos"
+        autocomplete="off"
+      />
+      @if (createForm.get('name')?.invalid && createForm.get('name')?.touched) {
+        <span class="dashboard__field-error">
+          @if (createForm.get('name')?.errors?.['required']) {
+            Nome obrigatório.
+          } @else if (createForm.get('name')?.errors?.['minlength']) {
+            Mínimo de 3 caracteres.
+          }
+        </span>
+      }
+    </div>
+    <div class="dashboard__form-actions">
+      <button type="button" class="btn btn-secondary" (click)="closeDialog()">Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="submitting()">
+        @if (submitting()) { Criando… } @else { Criar }
+      </button>
+    </div>
+  </form>
+</p-dialog>

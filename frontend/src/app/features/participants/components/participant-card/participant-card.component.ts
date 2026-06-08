@@ -1,8 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnInit, inject, signal } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, inject, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { PopoverModule, Popover } from 'primeng/popover';
+import { TooltipModule } from 'primeng/tooltip';
 import { Participant } from '../../services/participants.service';
 import {
   ConditionsService,
@@ -25,6 +27,8 @@ export interface ParticipantUpdateEvent {
     FormsModule,
     SelectModule,
     InputNumberModule,
+    PopoverModule,
+    TooltipModule,
     ConditionBadgeComponent,
   ],
   templateUrl: './participant-card.component.html',
@@ -34,8 +38,11 @@ export class ParticipantCardComponent implements OnInit {
   @Input() participant!: Participant;
   @Input() sessionId!: string;
   @Input() isActive = false;
+  @Input() readonly = false;
   @Output() onUpdate = new EventEmitter<ParticipantUpdateEvent>();
   @Output() onReload = new EventEmitter<void>();
+
+  @ViewChild('conditionPopover') conditionPopover!: Popover;
 
   private readonly conditionsService = inject(ConditionsService);
 
@@ -45,6 +52,7 @@ export class ParticipantCardComponent implements OnInit {
   editEnergyValue = 0;
 
   catalog = signal<Condition[]>([]);
+  conditionsExpanded = signal(false);
   selectedConditionId: string | null = null;
   conditionDuration: number | null = null;
   applyingCondition = false;
@@ -91,6 +99,7 @@ export class ParticipantCardComponent implements OnInit {
   }
 
   startEditHp(): void {
+    if (this.readonly) return;
     this.editHpValue = this.participant.hp;
     this.editingHp = true;
   }
@@ -107,6 +116,7 @@ export class ParticipantCardComponent implements OnInit {
   }
 
   startEditEnergy(): void {
+    if (this.readonly) return;
     this.editEnergyValue = this.participant.energy ?? 0;
     this.editingEnergy = true;
   }
@@ -137,8 +147,7 @@ export class ParticipantCardComponent implements OnInit {
       .subscribe({
         next: () => {
           this.applyingCondition = false;
-          this.selectedConditionId = null;
-          this.conditionDuration = null;
+          this.conditionPopover.hide();
           this.onReload.emit();
         },
         error: (err: Error) => {
@@ -149,6 +158,21 @@ export class ParticipantCardComponent implements OnInit {
               : err.message;
         },
       });
+  }
+
+  toggleConditions(): void {
+    this.conditionsExpanded.update((v) => !v);
+  }
+
+  toggleConditionPopover(event: Event): void {
+    this.conditionError = '';
+    this.conditionPopover.toggle(event);
+  }
+
+  onPopoverHide(): void {
+    this.selectedConditionId = null;
+    this.conditionDuration = null;
+    this.conditionError = '';
   }
 
   removeCondition(conditionId: string): void {

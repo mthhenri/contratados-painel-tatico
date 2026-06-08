@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
@@ -32,7 +32,7 @@ export class ParticipantsService {
   }
 
   async create(sessionId: string, userId: string, dto: CreateParticipantDto) {
-    await this.assertSessionOwnership(sessionId, userId);
+    await this.assertSessionMutable(sessionId, userId);
 
     const isCreature = dto.type === 'CREATURE';
 
@@ -56,7 +56,7 @@ export class ParticipantsService {
     userId: string,
     dto: UpdateParticipantDto,
   ) {
-    await this.assertSessionOwnership(sessionId, userId);
+    await this.assertSessionMutable(sessionId, userId);
     await this.assertParticipantBelongsToSession(id, sessionId);
 
     return this.prisma.participant.update({
@@ -73,7 +73,7 @@ export class ParticipantsService {
   }
 
   async remove(sessionId: string, id: string, userId: string) {
-    await this.assertSessionOwnership(sessionId, userId);
+    await this.assertSessionMutable(sessionId, userId);
     await this.assertParticipantBelongsToSession(id, sessionId);
 
     await this.prisma.participant.delete({ where: { id } });
@@ -84,6 +84,14 @@ export class ParticipantsService {
       where: { id: sessionId, userId },
     });
     if (!session) throw new NotFoundException('Sessão não encontrada');
+    return session;
+  }
+
+  private async assertSessionMutable(sessionId: string, userId: string) {
+    const session = await this.assertSessionOwnership(sessionId, userId);
+    if (session.status === 'FINISHED') {
+      throw new ForbiddenException('Sessão encerrada não pode ser alterada');
+    }
   }
 
   private async assertParticipantBelongsToSession(

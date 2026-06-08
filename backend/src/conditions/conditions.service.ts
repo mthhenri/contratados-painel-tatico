@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   Injectable,
   NotFoundException,
   ConflictException,
@@ -77,6 +78,9 @@ export class ConditionsService {
       where: { id: sessionId, userId },
     });
     if (!session) throw new NotFoundException('Sessão não encontrada');
+    if (session.status === 'FINISHED') {
+      throw new ForbiddenException('Sessão encerrada não pode ser alterada');
+    }
     return session;
   }
 

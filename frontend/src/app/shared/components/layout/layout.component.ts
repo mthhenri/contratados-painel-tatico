@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -20,6 +20,7 @@ export class LayoutComponent {
   private readonly router = inject(Router);
 
   readonly user = this.auth.currentUser;
+  readonly sidebarOpen = signal(false);
 
   readonly navItems: NavItem[] = [
     { label: 'Dashboard', icon: 'pi pi-home', route: '/dashboard' },
@@ -31,6 +32,14 @@ export class LayoutComponent {
     if (url.startsWith('/sessions')) return 'Sessões';
     return 'Dashboard';
   });
+
+  toggleSidebar(): void {
+    this.sidebarOpen.update((v) => !v);
+  }
+
+  closeSidebar(): void {
+    this.sidebarOpen.set(false);
+  }
 
   logout(): void {
     this.auth.logout();

@@ -144,35 +144,35 @@
   &__conditions {
     padding: 8px 12px;
     border-top: 1px solid var(--color-border);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
   }
 
   &__condition-list {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 4px;
   }
 
-  &__apply-condition {
-    display: flex;
+  &__add-condition-btn {
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-  }
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px dashed var(--color-border);
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 1;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
 
-  &__condition-select {
-    flex: 1;
-    min-width: 0;
-  }
-
-  &__condition-duration {
-    width: 64px;
-  }
-
-  &__condition-error {
-    font-size: 11px;
-    color: var(--color-red);
+    &:hover {
+      border-color: var(--color-red);
+      color: var(--color-red);
+      background: rgba(var(--color-red-rgb, 220, 38, 38), 0.06);
+    }
   }
 
   &__hp-bar-fill {
@@ -183,6 +183,20 @@
 
     &--critical {
       background: var(--color-hp-low);
+    }
+  }
+
+}
+
+@media (max-width: 479px) {
+  .participant-card {
+    &__body {
+      flex-direction: column;
+    }
+
+    &__stat-box {
+      flex: none;
+      width: 100%;
     }
   }
 }

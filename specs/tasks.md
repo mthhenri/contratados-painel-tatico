@@ -450,6 +450,35 @@ Garantir que todos os endpoints estão documentados com decorators do `@nestjs/s
 
 ---
 
+### [x] T-027 · Responsividade mobile (mobile-first CSS)
+
+Adicionar breakpoints aos tokens e ao Tailwind, e implementar layouts responsivos em todos os componentes principais.
+
+**Arquivos:**
+- `frontend/src/styles/tokens.scss` (breakpoints)
+- `frontend/tailwind.config.ts` (screens)
+- `frontend/src/app/shared/components/layout/layout.component.ts` (sidebarOpen signal)
+- `frontend/src/app/shared/components/layout/layout.component.html` (hamburger + overlay)
+- `frontend/src/app/shared/components/layout/layout.component.scss` (mobile drawer)
+- `frontend/src/app/features/sessions/pages/session-detail/session-detail.component.html` (tracker class)
+- `frontend/src/app/features/sessions/pages/session-detail/session-detail.component.scss` (sticky tracker)
+- `frontend/src/app/features/participants/components/participant-card/participant-card.component.ts` (conditionsExpanded signal)
+- `frontend/src/app/features/participants/components/participant-card/participant-card.component.html` (toggle conditions)
+- `frontend/src/app/features/participants/components/participant-card/participant-card.component.scss` (mobile layout)
+- `frontend/src/app/features/initiative/components/initiative-tracker/initiative-tracker.component.scss` (mobile compact)
+- `frontend/src/app/features/sessions/pages/session-list/session-list.component.scss` (mobile single column)
+
+**Pronto quando:**
+- Mobile (< 768px): sidebar oculta por padrão, hamburger abre drawer com overlay
+- Desktop (≥ 768px): comportamento atual preservado
+- Session detail: InitiativeTracker sticky no topo em mobile
+- ParticipantCard: coluna única, stats verticais em < 480px, condições colapsáveis
+- InitiativeTracker: layout compacto em mobile
+- SessionList: coluna única em mobile
+- Sem scroll horizontal em nenhuma tela
+
+---
+
 ### [x] T-026 · Atualização do CLAUDE.md
 
 Registrar o stack, comandos de build/test e estrutura do projeto.

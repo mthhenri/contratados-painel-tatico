@@ -1,5 +1,9 @@
 <div class="layout">
-  <aside class="layout__sidebar">
+  @if (sidebarOpen()) {
+    <div class="layout__overlay" (click)="closeSidebar()"></div>
+  }
+
+  <aside class="layout__sidebar" [class.layout__sidebar--open]="sidebarOpen()">
     <div class="layout__logo">
       <div class="layout__logo-mark">
         <i class="pi pi-shield"></i>
@@ -37,6 +41,9 @@
 
   <div class="layout__main">
     <header class="layout__topbar">
+      <button class="layout__hamburger" type="button" (click)="toggleSidebar()" aria-label="Menu">
+        <i class="pi pi-bars"></i>
+      </button>
       <h1 class="layout__page-title">{{ pageTitle() }}</h1>
       <div class="layout__topbar-actions">
         <ng-content select="[topbarActions]"></ng-content>

@@ -162,3 +162,22 @@
     padding-top: var(--spacing-xs);
   }
 }
+
+@media (max-width: 767px) {
+  .session-list {
+    padding: var(--spacing-md);
+
+    &__header {
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+    }
+  }
+}
+
+@media (max-width: 479px) {
+  .session-list {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

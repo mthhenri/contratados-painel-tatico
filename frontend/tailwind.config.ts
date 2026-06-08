@@ -77,6 +77,11 @@ export default {
         dark:          '#2a2a2a',
         'dark-2':      '#333333',
       },
+      screens: {
+        sm: '480px',
+        md: '768px',
+        lg: '1024px',
+      },
       boxShadow: {
         none: 'none',
       },

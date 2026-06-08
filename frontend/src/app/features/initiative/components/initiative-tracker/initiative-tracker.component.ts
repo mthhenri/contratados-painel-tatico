@@ -13,6 +13,7 @@ import { InitiativeService } from '../../services/initiative.service';
 })
 export class InitiativeTrackerComponent implements OnInit {
   @Input() session!: SessionDetail;
+  @Input() readonly = false;
 
   private readonly initiativeService = inject(InitiativeService);
 

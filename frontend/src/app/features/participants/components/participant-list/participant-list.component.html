@@ -5,13 +5,15 @@
   <!-- Section header -->
   <div class="participant-list__header">
     <span class="participant-list__label">Participantes</span>
-    <button
-      class="btn btn-ghost btn-sm"
-      type="button"
-      (click)="openDialog()"
-    >
-      + Adicionar participante
-    </button>
+    @if (!readonly) {
+      <button
+        class="btn btn-ghost btn-sm"
+        type="button"
+        (click)="openDialog()"
+      >
+        + Adicionar participante
+      </button>
+    }
   </div>
   <hr class="participant-list__divider" />
 
@@ -27,16 +29,20 @@
           [participant]="p"
           [sessionId]="sessionId"
           [isActive]="p.id === activeParticipantId"
+          [readonly]="readonly"
           (onUpdate)="handleUpdate($event)"
           (onReload)="load()"
         />
-        <button
-          class="btn btn-danger btn-sm participant-list__remove-btn"
-          type="button"
-          (click)="confirmRemove(p.id)"
-        >
-          Remover
-        </button>
+        @if (!readonly) {
+          <button
+            class="participant-list__remove-btn"
+            type="button"
+            title="Remover participante"
+            (click)="confirmRemove(p.id)"
+          >
+            <i class="pi pi-times"></i>
+          </button>
+        }
       </div>
     } @empty {
       <p class="participant-list__empty">Nenhum participante ainda.</p>
@@ -74,18 +80,20 @@
         [options]="typeOptions"
         optionLabel="label"
         optionValue="value"
-        [style]="{ width: '100%' }"
+        [pt]="selectPt"
       />
     </div>
 
     <div class="participant-form__row">
       <div class="participant-form__field">
         <label class="participant-form__label">HP Máximo *</label>
-        <p-inputNumber formControlName="maxHp" [min]="1" [style]="{ width: '100%' }" />
+        <p-inputNumber formControlName="maxHp" [min]="1"
+          [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }" />
       </div>
       <div class="participant-form__field">
         <label class="participant-form__label">HP Atual *</label>
-        <p-inputNumber formControlName="currentHp" [min]="0" [style]="{ width: '100%' }" />
+        <p-inputNumber formControlName="currentHp" [min]="0"
+          [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }" />
       </div>
     </div>
 
@@ -93,18 +101,21 @@
       <div class="participant-form__row">
         <div class="participant-form__field">
           <label class="participant-form__label">Energia Máxima</label>
-          <p-inputNumber formControlName="maxEnergy" [min]="0" [style]="{ width: '100%' }" />
+          <p-inputNumber formControlName="maxEnergy" [min]="0"
+            [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }" />
         </div>
         <div class="participant-form__field">
           <label class="participant-form__label">Energia Atual</label>
-          <p-inputNumber formControlName="currentEnergy" [min]="0" [style]="{ width: '100%' }" />
+          <p-inputNumber formControlName="currentEnergy" [min]="0"
+            [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }" />
         </div>
       </div>
     }
 
     <div class="participant-form__field">
       <label class="participant-form__label">Iniciativa</label>
-      <p-inputNumber formControlName="initiative" [style]="{ width: '100%' }" placeholder="Opcional" />
+      <p-inputNumber formControlName="initiative" placeholder="Opcional"
+        [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }" />
     </div>
 
     @if (error) {

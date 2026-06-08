@@ -138,14 +138,28 @@ Todos os módulos que acessam recursos de sessão (`sessions`, `participants`, `
 verificam que a sessão pertence ao mestre autenticado antes de qualquer operação. Requisições a recursos
 de outro usuário retornam 404 (não 403) para não vazar informação sobre a existência do recurso.
 
+### Guard de sessão encerrada (`FINISHED`)
+Operações de mutação (criar, atualizar, remover participantes; avançar iniciativa; aplicar/remover condições; atualizar status da sessão) lançam `ForbiddenException` se a sessão estiver com status `FINISHED`. Leitura (`findAll`, `findOne`) permanece liberada.
+
+### Modo `readonly` no frontend
+`InitiativeTrackerComponent`, `ParticipantCardComponent` e `ConditionBadgeComponent` aceitam `@Input() readonly = false`. Quando `true`, ocultam controles de edição e ações de mutação. `SessionDetailComponent` passa `readonly` baseado em `session.status === 'FINISHED'`.
+
+### `@primeng/themes` para preset Aura
+O `app.config.ts` usa `providePrimeNG({ theme: { preset: Aura } })` para aplicar o tema visual do PrimeNG. O pacote `@primeng/themes` está deprecado em favor de `@primeuix/themes`, mas é necessário para compatibilidade com PrimeNG 21. Não atualizar até migrar para PrimeNG 22+.
+
+### Incremento de turno sem módulo (initiative.service.ts)
+O `currentTurn` é incrementado sem módulo (`next = currentTurn + 1`) e o índice do participante ativo é calculado separadamente como `actives[next % actives.length]`. Isso preserva o número de round real enquanto o índice circular é calculado na leitura.
+
 ## Aprovação obrigatória
 Antes de avançar de uma fase para outra, aguardar confirmação explícita.
 
 ## Commits e Pushes
 
-Antes de realizar qualquer commit ou push, revise este arquivo (CLAUDE.md) e atualize-o se necessário para refletir o estado atual do projeto — stack, comandos de build/test, arquitetura, ou qualquer informação relevante que tenha mudado.
+Antes de realizar qualquer commit ou push:
+1. Revise este arquivo (CLAUDE.md) e atualize-o se necessário — stack, decisões técnicas, arquitetura, comandos.
+2. Revise o `README.md` raiz e atualize a seção de funcionalidades se algo novo foi implementado ou removido.
 
 - Commitar após cada task aprovada
-- Mensagem de commit: "feat(auth): task 1 — UserEntity e migration"
-- Manter tasks.md atualizado no repositório
-- O tasks.md versionado serve como histórico de progresso
+- Mensagem de commit: `feat(auth): task 1 — UserEntity e migration`
+- Manter `tasks.md` atualizado no repositório
+- O `tasks.md` versionado serve como histórico de progresso

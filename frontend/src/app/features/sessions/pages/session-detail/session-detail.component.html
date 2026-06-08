@@ -29,8 +29,8 @@
     </div>
 
     <!-- Initiative tracker -->
-    <div class="session-detail__section">
-      <app-initiative-tracker [session]="s" />
+    <div class="session-detail__section session-detail__section--tracker">
+      <app-initiative-tracker [session]="s" [readonly]="s.status === 'FINISHED'" />
     </div>
 
     <!-- Participant list -->
@@ -38,6 +38,7 @@
       <app-participant-list
         [sessionId]="s.id"
         [currentTurn]="currentTurn"
+        [readonly]="s.status === 'FINISHED'"
       />
     </div>
 

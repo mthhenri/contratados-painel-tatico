@@ -70,3 +70,49 @@
     padding-left: 4px;
   }
 }
+
+@media (max-width: 767px) {
+  .initiative-tracker {
+    &__bar {
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px 12px;
+    }
+
+    &__turn-info {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 6px;
+      min-width: auto;
+    }
+
+    &__round-label {
+      font-size: 11px;
+    }
+
+    &__round-number {
+      font-size: 16px;
+    }
+
+    &__active-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__active-name {
+      font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__actions {
+      width: 100%;
+
+      button {
+        flex: 1;
+        min-height: 44px;
+      }
+    }
+  }
+}

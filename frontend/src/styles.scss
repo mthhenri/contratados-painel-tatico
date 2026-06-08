@@ -28,3 +28,29 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+// Popover: adicionar condição ao participante
+.condition-popover {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 260px;
+  padding: 4px 0;
+
+  &__title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__error {
+    font-size: 11px;
+    color: var(--color-red);
+  }
+
+  &__submit {
+    align-self: flex-end;
+  }
+}

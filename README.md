@@ -16,6 +16,20 @@ Aplicação web para mestres de **Contratados RPG** gerenciarem combates — con
 
 ---
 
+## Funcionalidades implementadas
+
+- Autenticação de mestre com JWT (registro e login)
+- Dashboard com métricas de sessão e acesso rápido à sessão ativa
+- Criação e listagem de sessões de combate
+- Adição e remoção de participantes (personagens e criaturas)
+- Controle de ordem de iniciativa com avanço e reinício de turno
+- Edição de HP e energia durante o combate com barra visual
+- Gerenciamento de condições e estados temporários via popover
+- Guard de sessão encerrada — sessões `FINISHED` não aceitam mutações
+- Modo `readonly` em tracker e cards para sessões encerradas
+
+---
+
 ## Pré-requisitos
 
 - [Node.js](https://nodejs.org/) v22+ (testado em v24.11)

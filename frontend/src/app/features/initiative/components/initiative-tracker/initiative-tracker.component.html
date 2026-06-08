@@ -18,24 +18,26 @@
       }
     </div>
 
-    <div class="initiative-tracker__actions">
-      <button
-        class="btn btn-secondary btn-sm"
-        type="button"
-        (click)="reset()"
-        [disabled]="loading"
-      >
-        Reiniciar
-      </button>
-      <button
-        class="btn btn-primary btn-sm"
-        type="button"
-        (click)="advance()"
-        [disabled]="loading"
-      >
-        Próximo
-      </button>
-    </div>
+    @if (!readonly) {
+      <div class="initiative-tracker__actions">
+        <button
+          class="btn btn-secondary btn-sm"
+          type="button"
+          (click)="reset()"
+          [disabled]="loading"
+        >
+          Reiniciar
+        </button>
+        <button
+          class="btn btn-primary btn-sm"
+          type="button"
+          (click)="advance()"
+          [disabled]="loading"
+        >
+          Próximo
+        </button>
+      </div>
+    }
 
   </div>
 

@@ -1,37 +1,181 @@
 .dashboard {
   max-width: 900px;
-}
-
-.dashboard__metrics {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.dashboard__metric-card {
-  background-color: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  min-width: 160px;
-}
+  gap: var(--spacing-xl);
 
-.dashboard__metric-label {
-  font-size: 11px;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
+  &__metrics {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
 
-.dashboard__metric-value {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--color-text-primary);
+  &__metric-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px;
+  }
 
-  &--loading {
+  &__metric-label {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__metric-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+
+    &--loading {
+      color: var(--color-text-muted);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+  }
+
+  &__last-session {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  &__last-session-label {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  &__last-session-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  &__last-session-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-width: 0;
+  }
+
+  &__last-session-name {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__last-session-badge {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--color-red-light);
+    color: var(--color-red);
+    border: 1px solid var(--color-red-border);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    text-align: center;
+  }
+
+  &__empty-icon {
+    font-size: 32px;
     color: var(--color-text-muted);
+  }
+
+  &__empty-text {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  &__empty-sub {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--spacing-sm);
+  }
+
+  // Form
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+  }
+
+  &__form-error {
+    color: var(--color-red);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  &__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+  }
+
+  &__input {
+    width: 100%;
+    padding: 6px var(--spacing-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    background: var(--color-bg-surface);
+    outline: none;
+    transition: border-color var(--transition-fast);
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: var(--color-border-strong);
+    }
+  }
+
+  &__field-error {
+    font-size: var(--font-size-xs);
+    color: var(--color-red);
+  }
+
+  &__form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-xs);
   }
 }

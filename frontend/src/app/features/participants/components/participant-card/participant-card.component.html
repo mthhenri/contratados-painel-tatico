@@ -78,48 +78,58 @@
 
   <!-- Condições -->
   <div class="participant-card__conditions">
+    <div class="participant-card__condition-list">
+      @for (cond of enrichedConditions; track cond.id) {
+        <app-condition-badge
+          [condition]="cond"
+          [readonly]="readonly"
+          (onRemove)="removeCondition($event)"
+        />
+      }
+      @if (!readonly) {
+        <button
+          class="participant-card__add-condition-btn"
+          type="button"
+          (click)="toggleConditionPopover($event)"
+          [pTooltip]="conditionsExpanded() ? '' : 'Adicionar condição'"
+          tooltipPosition="top"
+        ><i class="pi pi-plus"></i></button>
+      }
+    </div>
+  </div>
 
-    <!-- Condições aplicadas -->
-    @if (enrichedConditions.length > 0) {
-      <div class="participant-card__condition-list">
-        @for (cond of enrichedConditions; track cond.id) {
-          <app-condition-badge
-            [condition]="cond"
-            (onRemove)="removeCondition($event)"
-          />
-        }
-      </div>
-    }
-
-    <!-- Aplicar condição -->
-    <div class="participant-card__apply-condition">
+  <!-- Popover: adicionar condição -->
+  <p-popover #conditionPopover (onHide)="onPopoverHide()">
+    <div class="condition-popover">
+      <p class="condition-popover__title">Adicionar condição</p>
       <p-select
         [options]="catalogOptions"
         [(ngModel)]="selectedConditionId"
         optionLabel="label"
         optionValue="value"
-        placeholder="Condição..."
-        [pt]="{ root: { class: 'participant-card__condition-select' } }"
+        placeholder="Selecione uma condição…"
+        [style]="{ width: '100%' }"
+        [filter]="true"
+        filterPlaceholder="Buscar…"
+        appendTo="body"
       />
       <p-inputNumber
         [(ngModel)]="conditionDuration"
         [min]="1"
-        placeholder="Dur."
-        [pt]="{ root: { class: 'participant-card__condition-duration' } }"
+        placeholder="Duração (turnos) — opcional"
+        [style]="{ width: '100%' }"
         [showButtons]="false"
       />
+      @if (conditionError) {
+        <span class="condition-popover__error">{{ conditionError }}</span>
+      }
       <button
-        class="btn btn-ghost btn-sm"
+        class="btn btn-primary btn-sm condition-popover__submit"
         type="button"
         [disabled]="!selectedConditionId || applyingCondition"
         (click)="applyCondition()"
-      >Aplicar</button>
+      >{{ applyingCondition ? 'Aplicando…' : 'Aplicar' }}</button>
     </div>
-
-    @if (conditionError) {
-      <span class="participant-card__condition-error">{{ conditionError }}</span>
-    }
-
-  </div>
+  </p-popover>
 
 </div>

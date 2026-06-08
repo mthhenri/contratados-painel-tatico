@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
@@ -56,7 +56,10 @@ export class SessionsService {
   }
 
   async update(id: string, userId: string, dto: UpdateSessionDto) {
-    await this.assertOwnership(id, userId);
+    const session = await this.assertOwnership(id, userId);
+    if (session.status === 'FINISHED') {
+      throw new ForbiddenException('Sessão encerrada não pode ser alterada');
+    }
 
     return this.prisma.session.update({
       where: { id },
@@ -75,5 +78,6 @@ export class SessionsService {
   private async assertOwnership(id: string, userId: string) {
     const session = await this.prisma.session.findFirst({ where: { id, userId } });
     if (!session) throw new NotFoundException('Sessão não encontrada');
+    return session;
   }
 }
